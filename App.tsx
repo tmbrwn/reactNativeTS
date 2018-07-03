@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Hello } from './src/Hello';
+import { StyleSheet, View } from 'react-native';
+import { CharacterList } from './src/CharacterList';
+import characters from './sample-characters.json';
+import { Header } from './src/Header';
 
 export default class App extends React.Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Hello
-          name="Stam"
+        <Header />
+        <CharacterList
+          characters={characters}
         />
       </View>
     );
@@ -17,16 +20,7 @@ export default class App extends React.Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#aaa',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
-  title: {
-    color: 'yellow',
-    fontSize: 18
-  },
-  paragraph: {
-    color: 'green',
-    fontSize: 14
-  }
 });
