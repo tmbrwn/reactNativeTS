@@ -8,8 +8,6 @@ import {
   Icon,
 } from 'native-base';
 import { createStackNavigator, NavigationSceneRendererProps } from 'react-navigation';
-// Declared untyped in types.d.ts
-import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import { Main } from './src/Main';
 import { Settings } from './src/Settings';
 
