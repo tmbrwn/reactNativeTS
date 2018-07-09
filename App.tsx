@@ -1,26 +1,60 @@
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { CharacterList } from './src/CharacterList';
-import characters from './sample-characters.json';
-import { Header } from './src/Header';
+import {
+  Body,
+  Button,
+  Container,
+  Content,
+  Footer,
+  Header,
+  Icon,
+} from 'native-base';
+import { createStackNavigator, NavigationSceneRendererProps } from 'react-navigation';
+// Declared untyped in types.d.ts
+import StackViewStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import { Main } from './src/Main';
+import { Settings } from './src/Settings';
 
-export default class App extends React.Component<{}> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Header />
-        <CharacterList
-          characters={characters}
-        />
-      </View>
-    );
-  }
+interface Interpolation {
+  transform: {
+    0: {
+      translateX: number;
+    },
+    1: {
+      translateY: number;
+    },
+  };
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
+const topToBottomInterpolator = (props: NavigationSceneRendererProps) => {
+  const {
+    layout,
+    scene,
+    position,
+  } = props;
+
+  const translateX = 0;
+  const translateY = position.interpolate({
+    inputRange: [scene.index - 1, scene.index],
+    outputRange: [-layout.initHeight, 0],
+  });
+
+  return {
+    opacity: 1,
+    transform: [{ translateX }, { translateY }],
+  };
+};
+
+export default createStackNavigator(
+  {
+    Settings,
+    Main,
   },
-});
+  {
+    initialRouteName: 'Main',
+    navigationOptions: {
+      header: null,
+    },
+    transitionConfig: () => ({
+      screenInterpolator: topToBottomInterpolator,
+    }),
+  },
+);
